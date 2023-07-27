@@ -6,8 +6,11 @@ class Questionario extends StatelessWidget {
   final List<Map<String, Object>> perguntas;
   final List<Widget> widgets;
 
-  Questionario(this.perguntas, this.perguntaSelecionada, this.widgets,
-      {super.key});
+  Questionario({
+    required this.perguntas,
+    required this.perguntaSelecionada,
+    required this.widgets,
+  });
 
   @override
   Widget build(BuildContext context) {

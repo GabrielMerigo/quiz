@@ -12,15 +12,28 @@ class PerguntaAppState extends State<PerguntaApp> {
   final List<Map<String, Object>> _perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
-      'respostas': ['Azul', 'Preto', 'Verde', 'Branco']
+      'respostas': [
+        {'texto': 'Azul', 'nota': 10},
+        {'texto': 'Preto', 'nota': 5},
+        {'texto': 'Verde', 'nota': 7},
+        {'texto': 'Branco', 'nota': 8}
+      ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
-      'respostas': ['Cachorro', 'Gato', 'Elefante']
+      'respostas': [
+        {'texto': 'Cachorro', 'nota': 4},
+        {'texto': 'Gato', 'nota': 4},
+        {'texto': 'Elefante', 'nota': 7},
+      ]
     },
     {
       'texto': 'Qual é o seu time favorito?',
-      'respostas': ['Binter', 'GRÊMIO', 'flamerda', 'GRÊMIO']
+      'respostas': [
+        {'texto': 'Binter', 'nota': 6},
+        {'texto': 'GRÊMIO', 'nota': 9},
+        {'texto': 'flamerda', 'nota': 3},
+      ]
     },
   ];
 
@@ -50,7 +63,11 @@ class PerguntaAppState extends State<PerguntaApp> {
             title: Text('Perguntas'),
           ),
           body: temPerguntaSelecionada
-              ? Questionario(_perguntas, perguntaSelecionada, widgets)
+              ? Questionario(
+                  perguntaSelecionada: perguntaSelecionada,
+                  perguntas: _perguntas,
+                  widgets: widgets,
+                )
               : Resultado('Parabéns!!')),
     );
   }
