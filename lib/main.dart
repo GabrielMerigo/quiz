@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/widgets/question%C3%A1rio.dart';
 import 'package:quiz/widgets/resposta.dart';
+import 'package:quiz/widgets/resultado.dart';
 
 main() => runApp(PerguntaApp());
 
@@ -50,12 +51,7 @@ class PerguntaAppState extends State<PerguntaApp> {
           ),
           body: temPerguntaSelecionada
               ? Questionario(_perguntas, perguntaSelecionada, widgets)
-              : Center(
-                  child: Text(
-                    'Parabéns!',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                )),
+              : Resultado('Parabéns!!')),
     );
   }
 }
