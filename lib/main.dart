@@ -46,6 +46,13 @@ class PerguntaAppState extends State<PerguntaApp> {
     });
   }
 
+  onReset() {
+    setState(() {
+      perguntaSelecionada = 0;
+      pontos = 0;
+    });
+  }
+
   bool get temPerguntaSelecionada {
     return perguntaSelecionada < _perguntas.length;
   }
@@ -67,16 +74,17 @@ class PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Perguntas'),
-          ),
-          body: temPerguntaSelecionada
-              ? Questionario(
-                  perguntaSelecionada: perguntaSelecionada,
-                  perguntas: _perguntas,
-                  widgets: widgets,
-                )
-              : Resultado("Parabéns!! Seus pontos foram $pontos!")),
+        appBar: AppBar(
+          title: Text('Perguntas'),
+        ),
+        body: temPerguntaSelecionada
+            ? Questionario(
+                perguntaSelecionada: perguntaSelecionada,
+                perguntas: _perguntas,
+                widgets: widgets,
+              )
+            : Resultado("Parabéns!! Seus pontos foram $pontos!", onReset),
+      ),
     );
   }
 }
