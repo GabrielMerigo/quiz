@@ -9,39 +9,41 @@ main() => runApp(PerguntaApp());
 
 class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
+  var pontos = 0;
+
   final List<Map<String, Object>> _perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
       'respostas': [
-        {'texto': 'Azul', 'nota': 10},
-        {'texto': 'Preto', 'nota': 5},
-        {'texto': 'Verde', 'nota': 7},
-        {'texto': 'Branco', 'nota': 8}
+        {'texto': 'Azul', 'pontuacao': 10},
+        {'texto': 'Preto', 'pontuacao': 5},
+        {'texto': 'Verde', 'pontuacao': 7},
+        {'texto': 'Branco', 'pontuacao': 8}
       ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
       'respostas': [
-        {'texto': 'Cachorro', 'nota': 4},
-        {'texto': 'Gato', 'nota': 4},
-        {'texto': 'Elefante', 'nota': 7},
+        {'texto': 'Cachorro', 'pontuacao': 4},
+        {'texto': 'Gato', 'pontuacao': 4},
+        {'texto': 'Elefante', 'pontuacao': 7},
       ]
     },
     {
       'texto': 'Qual é o seu time favorito?',
       'respostas': [
-        {'texto': 'Binter', 'nota': 6},
-        {'texto': 'GRÊMIO', 'nota': 9},
-        {'texto': 'flamerda', 'nota': 3},
+        {'texto': 'Binter', 'pontuacao': 6},
+        {'texto': 'GRÊMIO', 'pontuacao': 9},
+        {'texto': 'flamerda', 'pontuacao': 3},
       ]
     },
   ];
 
-  responder() {
+  responder(int pontuacao) {
     setState(() {
       perguntaSelecionada++;
+      pontos += pontuacao;
     });
-    print(perguntaSelecionada);
   }
 
   bool get temPerguntaSelecionada {
@@ -50,12 +52,18 @@ class PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> respostas = temPerguntaSelecionada
+    List<Map<String, Object>> respostas = temPerguntaSelecionada
         ? _perguntas[perguntaSelecionada].cast()['respostas']
         : [];
 
-    List<Widget> widgets =
-        respostas.map((text) => Resposta(text.toString(), responder)).toList();
+    List<Widget> widgets = respostas
+        .map((resp) => Resposta(
+              resp.cast()['texto'],
+              () {
+                responder(resp.cast()['pontuacao']);
+              },
+            ))
+        .toList();
 
     return MaterialApp(
       home: Scaffold(
@@ -68,7 +76,7 @@ class PerguntaAppState extends State<PerguntaApp> {
                   perguntas: _perguntas,
                   widgets: widgets,
                 )
-              : Resultado('Parabéns!!')),
+              : Resultado("Parabéns!! Seus pontos foram $pontos!")),
     );
   }
 }
